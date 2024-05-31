@@ -1,145 +1,115 @@
--- Instantiate variables
 local query = get("query");
-local btn = get("search-button")
-local rndmbtn = get("random-button")
+local items = get("item-name", true);
 
-local items = get("item", true);
-local itemName = get("item-name", true);
-local itemUrl = get("item-url", true);
-local itemIp = get("item-ip", true);
+-- Titles generated with ChatGPT
+local titles = {
+    "Shucking Sensations: Corn Unwrapped",
+    "Cob Confidential: Secrets of the Kernel",
+    "Popping Pleasure: Popcorn Perfection",
+    "Golden Grains: A-Maize-ing Adventures",
+    "Cornography Classics: Vintage Vines",
+    "Silky Smooth: The Art of Husk Removal",
+    "Kernel Knowledge: Corn Facts You Didn't Know",
+    "Sizzling Cobs: BBQ Corn on the Cob",
+    "Corny Comedy: Jokes from the Field",
+    "Ear-resistible: Sweet Corn Delights",
+    "Popcorn Paradise: From Kernel to Pop",
+    "Stalk and Awe: Giant Corn Plants",
+    "Corn Fiesta: Street Food Specialties",
+    "Cornucopia Chronicles: Harvest Tales",
+    "Husky Encounters: Cornfield Capers",
+    "Cobbin' it Up: Corn Party Extravaganza",
+    "Naughty by Nature: Cornfield Antics",
+    "Sweet and Steamy: Corn on the Cob Cooking Tips",
+    "Unleashed: The Great Corn Hunt",
+    "Field of Dreams: Corn Maze Adventures",
+    "Cobbing Together: DIY Corn Crafts",
+    "Saucy Shucks: Corn Recipes with a Twist",
+    "Corny Couples: Matching Cobs",
+    "Grainy Goodness: Homemade Cornmeal Treats",
+    "Cob Crackers: Corn Snacks Uncovered",
+    "Shuckfest: Epic Corn Shucking Competitions",
+    "The Kernel Chronicles: Corn Myths and Legends",
+    "Popped Perfection: Gourmet Popcorn Creations",
+    "Ear-tastic: Unique Corn Varieties Explained",
+    "Cobbler's Delight: Corn Desserts You Must Try",
+    "Corn-fed: Farm-to-Table Corn Delicacies",
+    "Cob Confidential: Behind the Stalk",
+    "Mighty Maize: Corn's Role in History",
+    "Steamy Ears: Corn Steaming Techniques",
+    "The Shuck Stops Here: Ultimate Corn Shucking Guide",
+    "Cornfield Capers: Mischief in the Maize",
+    "Popcorn Prowess: Secrets to Perfect Pops",
+    "Harvest Hustle: Corn Picking Frenzy",
+    "Husk Hustlers: Cornfield Shenanigans",
+    "Golden Ears: Gourmet Corn Recipes",
+    "Kernel Kings: Corn Growing Tips",
+    "Corn Crusaders: Saving the Crop",
+    "Stalk Stories: Tales from the Field",
+    "Husker Hijinks: Fun with Corn Husks",
+    "Mighty Munchies: Corn Snack Ideas",
+    "Popping Perfection: The Best Popcorn Toppings",
+    "Corn-tastic: Amazing Corn Facts",
+    "Sweet Kernel: Corn Syrup Creations",
+    "Cobbing Class: How to Grow Corn",
+    "Grill Masters: Corn on the BBQ",
+    "Field Frolics: Corn Maze Challenges",
+    "Shuck and Awe: Corn Harvest Techniques",
+    "Ear Envy: Unique Corn Cob Shapes",
+    "Popcorn Party: Flavored Popcorn Recipes",
+    "Corny Creations: Corn Art and Crafts",
+    "Cob Connoisseur: Tasting Different Corn Varieties",
+    "Golden Harvest: Cornfield Journeys",
+    "Cornfield Comedy: Hilarious Corn Jokes",
+    "Kernel Keepers: Storing Corn Long-Term",
+    "Corn Cuisine: Gourmet Dishes with Corn",
+    "Cob Creations: Corn DIY Projects",
+    "Silky Secrets: Corn Silk Uses",
+    "Shuck Stars: Corn Shucking Tips",
+    "Stalk Talk: Corn Growing Tips",
+    "Popcorn Pizzazz: Creative Popcorn Ideas",
+    "Harvest Heroes: Stories from the Cornfield",
+    "Cob Crafters: Handmade Corn Products",
+    "Corn Carnival: Fun Corn Games",
+    "Kernel Kraziness: Fun Corn Facts",
+    "Pop and Lock: The Best Popcorn Machines",
+    "Sweet Corn Serenade: Corn Recipe Specials",
+    "Cobblers' Delight: Cornbread and More",
+    "Cornfield Chronicles: Farming Adventures",
+    "Kernel Quest: Finding Rare Corn Varieties",
+    "Cob Capers: Fun in the Field",
+    "Golden Grain: Corn's Role in Cuisine",
+    "Shuck Shack: Corn Recipe Headquarters",
+    "Corn Comedy Hour: Jokes and Stories",
+    "Kernel Craze: Popular Corn Snacks",
+    "Popcorn Perfection: Tips for the Perfect Pop",
+    "Stalk Sagas: Cornfield Tales",
+    "Sweet and Savory: Corn Recipes Galore",
+    "Cob Collectors: Rare Corn Varieties",
+    "Silky Smooth: Corn Silk Uses",
+    "Grill and Thrill: BBQ Corn Recipes",
+    "Harvest Hilarity: Funny Corn Stories",
+    "Ear Excellence: Perfect Corn Cooking",
+    "Popcorn Pals: Popcorn Pairings",
+    "Corn Charm: Corn-Based Decorations",
+    "Kernel Craftsmanship: DIY Corn Projects",
+    "Cob Kisses: Sweet Corn Recipes",
+    "Cornfield Confidential: Behind the Scenes",
+    "Golden Grains: Corn's Impact on History",
+    "Popcorn Party: Movie Night Specials",
+    "Cob Creations: Artistic Uses for Corn",
+    "Stalk Strategies: Corn Growing Techniques",
+    "Corn Cuisine: Global Corn Recipes",
+    "Shuck Stars: Mastering Corn Shucking",
+    "Harvest Hustle: Corn Picking Fun",
+    "Kernel Kisses: Corn Recipe Secrets",
+    "Popcorn Perks: Healthy Popcorn Ideas",
+    "Cob Comedians: Funny Corn Stories",
+    "Cornfield Camaraderie: Farmer Stories",
+    "Golden Gourmet: Fancy Corn Dishes",
+    "Shuck and Jive: Corn Harvest Fun"
+};
 
--- IP ban list, these IPs don't go anywhere
-local banlist = {
-    "1.1.1.1",
-    "localhost",
-    "google.com",
-    "127.0.0.1",
-    "a",
-    "69.69.69",
-    "0.0.0.0",
-    "reserved",
-    "buss://"
-}
-
-local potentialPrefixes = {
-    "",
-    "https://",
-    "http://"
-}
-
--- Fetch data
-local _response = fetch({
-    url = "https://api.buss.lol/domains",
-    method = "GET",
-    headers = { },
-    body = ""
-});
-
-
--- Process ban list
-local response = {};
-local banned = {}
-
--- Create all possible combinations of banned addresses and prefixes.
-for index, prefix in pairs(potentialPrefixes) do
-    for j, ban in pairs(banlist) do
-        table.insert(banned, (prefix .. ban));
-    end
+for index, item in ipairs(items) do
+    item.set_content(titles[math.random(#titles)]);
 end
-
--- Filter the list for 'IPs' that start with banned phrases. We want to weed out the majority
--- of invalid 'IPs'.
-for index, item in pairs(_response) do
-    local ip = item["ip"];
-    local isBanned = false;
-    for j, ban in pairs(banned) do
-        if string.sub(ip, 1, #ban) == ban then
-            isBanned = true;
-            break;
-        end
-    end
-    if isBanned == false then
-        table.insert(response, item);
-    end
-end
-
--- Main thread
-function main()
-    clearItems();
-end
-
--- Declare functions
-------------------------------------
--- Get URL of an item
-function getURL(item)
-    return (item["name"] .. "." .. item["tld"]);
-end
-
--- Clears all items from the results.
-function clearItems()
-    for index, item in pairs(items) do
-        item.set_opacity(0);
-    end
-end
-
--- Displays the given item at the given index in the results.
-function displayItem(index, item)
-    local itemEl = items[index];
-    local nameEl = itemName[index];
-    local ipEl = itemIp[index];
-    local urlEl = itemUrl[index];
-
-    local url = "buss://" .. getURL(item);
-
-    itemEl.set_opacity(1);
-    nameEl.set_content(item["name"]);
-    ipEl.set_content(item["ip"]);
-    urlEl.set_content(url);
-    urlEl.set_href(url);
-end
-
--- Displays an array of items in the results.
-function displayItems(arr)
-    clearItems();
-    for index, item in pairs(arr) do
-        displayItem(index, item)
-    end
-end
-
--- Filters all the items for items that match the given query string.
-function filterItems(queryString)
-    local filtered = {};
-    for index, item in pairs(response) do
-        local url = getURL(item);
-        -- We want pages that have the query in their domain name to be at the top of the results.
-        -- If we find the query inside the 'IP' we want them to be at the bottom, since they might not
-        -- be as relevant.
-        if string.find(string.lower(url), string.lower(queryString)) then
-            table.insert(filtered, 1, item);
-        elseif string.find(string.lower(item["ip"]), string.lower(queryString)) then
-            table.insert(filtered, item);
-        end
-    end
-    return filtered;
-end
-
--- Returns a random item from the list of items.
-function getRandomItem()
-    return response[math.random(#response)];
-end
-
--- Retrieve the contents of the input and apply the query.
-function applyQuery(queryString)
-    displayItems(filterItems(query.get_content()));
-end
-
--- Event Listeners
-query.on_submit(applyQuery);
-btn.on_click(applyQuery);
-rndmbtn.on_click(function()
-    clearItems();
-    displayItem(1, getRandomItem());
-end)
-
--- Run main thread
-main();
