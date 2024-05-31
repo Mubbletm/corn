@@ -4,15 +4,24 @@ input {
 
 title {
     direction: row;
-    gap: 4px;
+    gap: 10px;
 
 }
 
+search-button {
+    padding: 10px;
+}
+
+random-button {
+    padding: 10px;
+}
+
 hub-title {
-    border-color: orange;
+    border-color: deepskyblue;
     border-width: 2px;
     border-style: solid;
     border-radius: 8px;
+    padding: 3px;
 }
 
 searchArea {
@@ -27,7 +36,6 @@ header {
 
 categories {
     direction: row;
-    align-items: center;
     gap: 20px;
 }
 
@@ -40,18 +48,7 @@ category {
 
 active-category {
     underline: single;
-    underline-color: orange;
-}
-
-content {
-    direction: column;
-    gap: 20px;
-}
-
-content-row {
-    direction: row;
-    gap: 30px;
-    align-items: center;
+    underline-color: deepskyblue;
 }
 
 main {
@@ -59,10 +56,16 @@ main {
     gap: 20px;
 }
 
+results {
+    direction: column;
+    gap: 20px;
+}
+
 item {
-    border-color: #4444;
+    border-color: #5559;
     border-width: 1px;
     border-style: solid;
-    border-radius: 30px;
+    border-radius: 20px;
     padding: 30px;
+    direction: column;
 }
